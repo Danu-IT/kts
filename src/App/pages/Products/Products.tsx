@@ -11,6 +11,7 @@ import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Search from "./components/Search";
+import Total from "./components/Total";
 import styles from "./Products.module.scss";
 
 type Props = {};
@@ -69,7 +70,10 @@ const Products = (props: Props) => {
         search={search}
         setSearch={setSearch}
       ></Search>
-      <h1 className={styles.products__total}>Total Product</h1>
+      <h1 className={styles.products__total}>
+        Total Product
+        <Total />
+      </h1>
       <ListProducts data={products} error={error}></ListProducts>
       <InfiniteScroll
         dataLength={products.length} //This is important field to render the next data

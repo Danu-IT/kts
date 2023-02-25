@@ -1,8 +1,7 @@
-import React, { FC, Dispatch, SetStateAction } from "react";
+import { FC } from "react";
 
 import { navRoutes } from "@components/Router/Router";
-import classNames from "classnames";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 import styles from "./Navbar.module.scss";
