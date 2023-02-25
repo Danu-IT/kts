@@ -1,0 +1,56 @@
+.card {
+  font-family: "Eudoxus Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+
+  max-width: 394px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  max-height: 100%;
+  color: #151411;
+  &:hover {
+    cursor: pointer;
+  }
+  &_img {
+    max-width: 394px;
+    height: 340px;
+    object-fit: cover;
+  }
+  &_сategory {
+    color: #afadb5;
+    margin: 26px 0 14px 0;
+  }
+  &_title {
+    margin: 0;
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  &_subtitle {
+    font-weight: 500;
+    font-size: 18px;
+    padding: 12px 0 0 0;
+    color: #afadb5;
+  }
+  &_content {
+    font-size: 24px;
+  }
+  @media (max-width: 575px) {
+    width: 156px;
+    font-size: 14px;
+    &_img {
+      width: 156px;
+      height: 130px;
+      object-fit: cover;
+    }
+    &_title {
+      font-size: 14px;
+    }
+    &_subtitle {
+      font-size: 12px;
+    }
+  }
+}
