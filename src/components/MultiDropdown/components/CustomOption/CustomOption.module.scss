@@ -1,0 +1,14 @@
+@import "@styles/variable.scss";
+
+.multiDropdown {
+  &__check {
+    appearance: none;
+  }
+  &__item {
+    padding: 15px;
+  }
+}
+
+.checked {
+  color: $color-primary;
+}

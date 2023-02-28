@@ -1,0 +1,84 @@
+@import "@styles/variable.scss";
+
+.header {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    &_img {
+      width: 40px;
+      height: 40px;
+    }
+
+    &_text {
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
+
+  &__icons {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+
+  &__line {
+    background-color: $color-light-gray;
+    border: none;
+    color: $color-light-gray;
+    height: 2px;
+  }
+
+  &__burger {
+    display: none;
+  }
+
+  &__menu {
+    display: none;
+  }
+
+  @include _600 {
+    justify-content: baseline;
+    &__icons {
+      display: none;
+    }
+
+    &__burger {
+      display: block;
+    }
+
+    &__menu {
+      display: block;
+      width: 50%;
+      height: 100%;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      &_content {
+        position: relative;
+        padding: 15px;
+      }
+
+      &_close {
+        position: absolute;
+        top: 45px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  @include _468 {
+    &__menu {
+      width: 100%;
+    }
+  }
+}

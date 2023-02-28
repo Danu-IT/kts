@@ -1,0 +1,78 @@
+@import "@styles/variable.scss";
+
+.multiDropdown {
+  font-family: "Eudoxus Sans";
+  font-style: normal;
+  font-weight: 400;
+  position: relative;
+  max-width: 190px;
+  width: 100%;
+  background-color: transparent;
+  box-shadow: 0px 4px 120px rgba(175, 173, 181, 0.15);
+
+  &__btn {
+    font-size: 18px;
+    background: #ffffff;
+    border: none;
+    height: 86px;
+    padding-left: 20px;
+
+    &_container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      justify-content: center;
+    }
+  }
+
+  &__filter {
+    position: absolute;
+    top: 35%;
+    left: 25%;
+    width: 30px;
+    height: 30px;
+    color: #151411;
+  }
+
+  &__list {
+    position: absolute;
+    width: 190px;
+    top: 100px;
+
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0px 4px 120px rgba(175, 173, 181, 0.15);
+    background-color: white;
+  }
+
+  &__none {
+    display: none;
+  }
+
+  @include _600 {
+    max-width: none;
+    &__btn {
+      font-size: 14px;
+      height: 48px;
+    }
+
+    &__list {
+      top: 60px;
+      width: 100%;
+    }
+
+    &__filter {
+      position: none;
+      left: 130px;
+      top: 10px;
+      width: 20px;
+    }
+  }
+  @include _468 {
+    &__filter {
+      left: 100px;
+    }
+  }
+}
