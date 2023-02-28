@@ -1,3 +1,5 @@
+@import "@styles/variable.scss";
+
 .swiper {
   position: relative;
   width: 600px;
@@ -9,12 +11,15 @@
   &__btns {
     z-index: 3;
   }
+
   &__slides {
     display: flex;
   }
+
   &__disabled {
     opacity: 0.7;
   }
+
   &__left {
     position: absolute;
     z-index: 20;
@@ -24,6 +29,7 @@
     height: 70px;
     cursor: pointer;
   }
+
   &__right {
     position: absolute;
     z-index: 20;
@@ -33,20 +39,24 @@
     height: 70px;
     cursor: pointer;
   }
+
   &__slide {
     height: 600px;
     width: auto;
     max-height: 100%;
     object-fit: cover;
   }
-  @media (max-width: 1000px) {
+
+  @include _1000 {
     max-width: 90%;
   }
-  @media (max-width: 800px) {
+
+  @include _800 {
     height: 327px;
     max-width: 60%;
   }
-  @media (max-width: 600px) {
+
+  @include _600 {
     height: 327px;
     width: 327px;
     max-width: 100%;

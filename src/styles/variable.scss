@@ -1,0 +1,32 @@
+$color-gray: #afadb5;
+$color-light-gray: #d9d9d9;
+$color-primary: #518581;
+
+$desktop-max-width: 1000px;
+$tablet-max-width: 800px;
+$mobile_min-max-width: 600px;
+$mobile-max-width: 468px;
+
+@mixin _1000 {
+  @media (max-width: $desktop-max-width) {
+    @content;
+  }
+}
+
+@mixin _800 {
+  @media (max-width: $tablet-max-width) {
+    @content;
+  }
+}
+
+@mixin _600 {
+  @media (max-width: $mobile_min-max-width) {
+    @content;
+  }
+}
+
+@mixin _468 {
+  @media (max-width: $mobile-max-width) {
+    @content;
+  }
+}

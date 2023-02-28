@@ -1,26 +1,32 @@
+@import "@styles/variable.scss";
+
 .checkbox {
   box-sizing: border-box;
   &_input {
     appearance: none;
     position: absolute;
   }
+
   &_box {
     position: absolute;
     width: 40px;
     height: 40px;
     background: #ffffff;
-    box-shadow: 0px 4px 120px #afadb5;
+    box-shadow: 0px 4px 120px $color-gray;
   }
+
   &_hover {
     &:hover {
-      border: 1px solid #518581;
+      border: 1px solid $color-primary;
     }
   }
+
   &_input:checked + &_box {
-    background-image: url(../../assets/images/Check.svg);
+    background-image: url(@/images/Check.svg);
     background-position: 6px 4px;
     background-repeat: no-repeat;
   }
+
   &_input:disabled + &_box {
     opacity: 0.7;
     background-position: 7px 5px;

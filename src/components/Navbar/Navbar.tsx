@@ -9,10 +9,10 @@ import styles from "./Navbar.module.scss";
 interface NavbarProps {
   className?: string;
   style?: boolean;
-  visible?: () => void;
+  toggle?: () => void;
 }
 
-const Navbar: FC<NavbarProps> = ({ className, style, visible }) => {
+const Navbar: FC<NavbarProps> = ({ className, style, toggle }) => {
   const location = useLocation();
   let classname = styles.navbar;
   if (style) {
@@ -22,7 +22,7 @@ const Navbar: FC<NavbarProps> = ({ className, style, visible }) => {
     <nav className={`${classname} ${className}`}>
       {navRoutes.map((elem) => (
         <Link
-          onClick={visible}
+          onClick={toggle}
           className={
             elem.path === location.pathname ? styles.navbar_active : ""
           }

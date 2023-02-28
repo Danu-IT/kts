@@ -18,22 +18,22 @@ const Loader: FC<LoaderProps> = ({
   className,
   color,
 }: LoaderProps) => {
-  if (!loading) return null;
-  let loader = classNames(styles.testClass);
-  if (className) loader += className;
-  if (size === "s") {
-    loader = classNames(styles.testClass, styles.small);
-  } else if (size === "l") {
-    loader = classNames(styles.testClass, styles.large);
+  if (!loading) {
+    return null;
   }
+
+  const loaderClassName = classNames(styles.testClass, className, {
+    [styles.small]: size === "s",
+    [styles.large]: size === "l",
+  });
 
   return (
     <div
       style={{
-        borderColor: color ? color : "",
+        borderColor: color,
         borderBottomColor: "transparent",
       }}
-      className={loader}
+      className={loaderClassName}
     ></div>
   );
 };

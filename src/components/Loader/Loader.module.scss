@@ -1,6 +1,8 @@
+@import "@styles/variable.scss";
+
 .testClass {
   box-sizing: border-box;
-  border: 4.5px solid #518581;
+  border: 4.5px solid $color-primary;
   border-bottom: 4.5px solid transparent;
   border-radius: 50%;
   width: 40px;
@@ -9,14 +11,14 @@
 }
 
 .small {
-  border: 3px solid #518581;
+  border: 3px solid $color-primary;
   border-bottom: 3px solid transparent;
   width: 20px;
   height: 20px;
 }
 
 .large {
-  border: 6px solid #518581;
+  border: 6px solid $color-primary;
   border-bottom: 6px solid transparent;
   width: 60px;
   height: 60px;
@@ -26,6 +28,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

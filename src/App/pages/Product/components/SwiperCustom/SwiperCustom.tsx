@@ -1,8 +1,6 @@
-import { useRef, FC, useState, useEffect } from "react";
+import { useRef, FC } from "react";
 
 import Arrow from "@images/Arrow.svg";
-import { log } from "@utils/index";
-import classNames from "classnames";
 import { Swiper as SwiperType, Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 

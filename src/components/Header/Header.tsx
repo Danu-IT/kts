@@ -10,12 +10,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 import styles from "./Header.module.scss";
 
-type HeaderProps = {};
-
-const Header: FC<HeaderProps> = () => {
+const Header: FC = () => {
   const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
-  const burgerMenu = () => {
-    setVisibleMenu((prev) => (prev = !prev));
+  const toggleBurgerMenu = () => {
+    setVisibleMenu((prev) => !prev);
   };
   return (
     <div>
@@ -30,7 +28,7 @@ const Header: FC<HeaderProps> = () => {
           <BiUser width={30} height={30}></BiUser>
         </div>
         <GiHamburgerMenu
-          onClick={burgerMenu}
+          onClick={toggleBurgerMenu}
           className={styles.header__burger}
           size={30}
         ></GiHamburgerMenu>
@@ -39,10 +37,10 @@ const Header: FC<HeaderProps> = () => {
             <div className={styles.header__menu_content}>
               <AiOutlineClose
                 className={styles.header__menu_close}
-                onClick={burgerMenu}
+                onClick={toggleBurgerMenu}
               ></AiOutlineClose>
               <Navbar
-                visible={burgerMenu}
+                toggle={toggleBurgerMenu}
                 style={true}
                 className={styles.header__navbar}
               ></Navbar>

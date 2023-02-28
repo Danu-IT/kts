@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import Input from "@components/Input";
 import MultiDropdown from "@components/MultiDropdown";
@@ -35,7 +35,9 @@ const Search: FC<SearchProps> = ({
           { key: "1", value: "Val" },
           { key: "2", value: "Val2" },
         ]}
-        pluralizeOptions={(e) => (e ? "Filter" : `Выбрано ${e}`)}
+        pluralizeOptions={(option: Option[]) =>
+          !option.length ? "Filter" : `Выбрано: ${option.length}`
+        }
       ></MultiDropdown>
     </div>
   );

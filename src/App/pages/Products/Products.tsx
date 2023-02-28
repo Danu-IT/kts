@@ -1,12 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-import Card from "@components/Card";
 import ListProducts from "@components/ListProducts";
 import Loader from "@components/Loader";
-import { useApiGet } from "@hooks/useGetFetching";
+import { useGetFetching } from "@hooks/useGetFetching";
 import { ProductData, LoaderSize, Option } from "@type/index";
 import { API_ENDPOINTS } from "@utils/api";
-import { log } from "@utils/index";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -14,17 +12,16 @@ import Search from "./components/Search";
 import Total from "./components/Total";
 import styles from "./Products.module.scss";
 
-type Props = {};
-
-const Products = (props: Props) => {
+const Products = () => {
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<Option[]>([]);
 
   const [products, setProducts] = useState<ProductData[]>([]);
-  const [limit, setLimit] = useState<number>(10);
-  const [offset, setOffset] = useState<number>(1);
+  const [offset, setOffset] = useState<number>(0);
 
-  const [getProducts, error, loading] = useApiGet(async () => {
+  const limit = 10;
+
+  const [getProducts, error, loading] = useGetFetching(async () => {
     const apiResponse = await axios.get(API_ENDPOINTS.PRODUCTS, {
       params: {
         limit: limit,
@@ -33,18 +30,12 @@ const Products = (props: Props) => {
     });
 
     const response = await apiResponse.data;
-    if (offset === 1) {
-      setProducts((prev) => [...response]);
-    } else {
-      setProducts((prev) => [...prev, ...response]);
-    }
+    setProducts((prev) => [...prev, ...response]);
   });
 
   useEffect(() => {
     getProducts();
   }, [offset]);
-
-  useEffect(() => {}, []);
 
   if (loading) {
     return (
@@ -75,9 +66,10 @@ const Products = (props: Props) => {
         <Total />
       </h1>
       <ListProducts data={products} error={error}></ListProducts>
+
       <InfiniteScroll
-        dataLength={products.length} //This is important field to render the next data
-        next={() => setOffset((prev) => prev + 10)}
+        dataLength={products.length}
+        next={() => setOffset((prev) => prev + limit)}
         hasMore={true}
         loader={<Loader size={LoaderSize.m}></Loader>}
       >

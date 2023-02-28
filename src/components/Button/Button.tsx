@@ -23,12 +23,10 @@ const Button: FC<ButtonProps> = ({
   color,
   ...props
 }: ButtonProps) => {
-  let classButton = classNames(styles.button);
-  if (loading || disabled) {
-    classButton = classNames(styles.button, styles.button_disabled);
-  } else {
-    classButton = classNames(styles.button, styles.button_hover);
-  }
+  const classButton = classNames(
+    styles.button,
+    (loading || disabled) && styles.button_disabled
+  );
 
   return (
     <button
@@ -40,7 +38,7 @@ const Button: FC<ButtonProps> = ({
       }}
       disabled={loading || disabled}
       onClick={onClick}
-      className={`${classButton} ${props.className}`}
+      className={classButton}
     >
       {loading && <Loader color={"white"} size={LoaderSize.s}></Loader>}
       {children}

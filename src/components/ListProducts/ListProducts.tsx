@@ -23,7 +23,6 @@ const ListProducts: FC<ListProductsProps> = ({ error, data }) => {
       {error ? (
         <div>Ошибка</div>
       ) : (
-        data &&
         data.map((product: ProductData) => (
           <Card
             onClick={() => handleCard(product.id)}

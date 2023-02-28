@@ -1,3 +1,5 @@
+@import "@styles/variable.scss";
+
 .navbar {
   list-style-type: none;
   text-decoration: none;
@@ -5,26 +7,32 @@
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
+
   & > * {
     text-decoration: none;
     margin-right: 60px;
     color: #151411;
   }
+
   &_active {
-    color: #518581;
+    color: $color-primary;
     padding-bottom: 47px;
-    border-bottom: 3px solid #518581;
+    border-bottom: 3px solid $color-primary;
   }
-  @media (max-width: 800px) {
+
+  @include _800 {
     font-size: 14px;
+
     & > * {
       margin-right: 30px;
     }
+
     &_active {
       padding-bottom: 50px;
     }
   }
-  @media (max-width: 600px) {
+
+  @include _600 {
     display: none;
     &_adaptive {
       margin-top: 100px;
@@ -33,15 +41,17 @@
       flex-direction: column;
       align-items: center;
       font-size: 30px;
+
       & > * {
         text-decoration: none;
         color: #151411;
         margin-bottom: 15px;
       }
+
       .navbar_active {
-        border-bottom: 0px solid #518581;
+        border-bottom: 0px solid $color-primary;
         padding-bottom: 0px;
-        color: #518581;
+        color: $color-primary;
       }
     }
   }

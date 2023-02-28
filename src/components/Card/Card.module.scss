@@ -1,3 +1,5 @@
+@import "@styles/variable.scss";
+
 .card {
   font-family: "Eudoxus Sans";
   font-style: normal;
@@ -15,30 +17,37 @@
   &:hover {
     cursor: pointer;
   }
+
   &_img {
+    width: 394px;
     max-width: 394px;
     height: 340px;
     object-fit: cover;
   }
+
   &_сategory {
-    color: #afadb5;
+    color: $color-gray;
     margin: 26px 0 14px 0;
   }
+
   &_title {
     margin: 0;
     font-size: 26px;
     margin-bottom: 10px;
   }
+
   &_subtitle {
     font-weight: 500;
     font-size: 18px;
     padding: 12px 0 0 0;
-    color: #afadb5;
+    color: $color-gray;
   }
+
   &_content {
     font-size: 24px;
   }
-  @media (max-width: 575px) {
+
+  @include _600 {
     width: 156px;
     font-size: 14px;
     &_img {
@@ -46,9 +55,11 @@
       height: 130px;
       object-fit: cover;
     }
+
     &_title {
       font-size: 14px;
     }
+
     &_subtitle {
       font-size: 12px;
     }

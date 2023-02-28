@@ -1,8 +1,5 @@
-import React from "react";
-
 import Button from "@components/Button";
 import { ProductData } from "@type/index";
-import { log } from "@utils/index";
 
 import styles from "./Card.module.scss";
 import SwiperCustom from "../SwiperCustom";
@@ -11,7 +8,7 @@ export type CardProps = {
   product: ProductData;
 };
 
-const Card = ({ product, ...props }: CardProps) => {
+const Card = ({ product }: CardProps) => {
   return (
     <div className={styles.card}>
       {product && (

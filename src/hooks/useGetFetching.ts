@@ -1,9 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import { log } from "@utils/index";
-import axios from "axios";
-
-export const useApiGet = (callback: () => void) => {
+export const useGetFetching = (callback: () => void) => {
   const [error, setError] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -11,8 +8,8 @@ export const useApiGet = (callback: () => void) => {
     setLoading(true);
     try {
       callback();
-    } catch (error) {
-      setError(error);
+    } catch (error: any) {
+      setError(error.message);
     }
     setLoading(false);
   };

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
+import { useGetFetching } from "@hooks/useGetFetching";
+import { API_ENDPOINTS } from "@utils/api";
 import axios from "axios";
 
 import styles from "./Total.module.scss";
-import { useApiGet } from "../../../../../hooks/useGetFetching";
-import { API_ENDPOINTS } from "../../../../../utils/api";
-type Props = {};
 
-const Total = (props: Props) => {
+const Total = () => {
   const [total, setTotal] = useState<number>();
-  const [getAllProducts, error, loading] = useApiGet(async () => {
+
+  const [getAllProducts] = useGetFetching(async () => {
     const apiResponse = await axios.get(API_ENDPOINTS.PRODUCTS);
     const response = await apiResponse.data;
     setTotal(response.length);
