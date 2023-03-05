@@ -1,15 +1,15 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import styles from "./Card.module.scss";
+import styles from './Card.module.scss'
 
 export type CardProps = {
-  image: string[];
-  title: React.ReactNode;
-  subtitle: React.ReactNode;
-  content?: React.ReactNode;
-  сategory?: string;
-  onClick?: React.MouseEventHandler;
-};
+  image: string[]
+  title: React.ReactNode
+  subtitle: React.ReactNode
+  content?: React.ReactNode
+  сategory?: string
+  onClick?: React.MouseEventHandler
+}
 
 const Card: FC<CardProps> = ({
   image,
@@ -31,7 +31,7 @@ const Card: FC<CardProps> = ({
       </div>
       <div className={styles.card_content}>${content}</div>
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

@@ -1,15 +1,17 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import Input from "@components/Input";
-import MultiDropdown from "@components/MultiDropdown";
-import { Option } from "@type/index";
+import Input from '@components/Input'
+import MultiDropdown from '@components/MultiDropdown'
+import { Option } from '@type/index'
 
 interface SearchProps {
-  search: string;
-  filter: Option[];
-  setSearch: (value: string) => void;
-  setFilter: (value: Option[]) => void;
-  className?: string;
+  handleFind: () => void
+  search: string
+  filter: Option[]
+  setSearch: (value: string) => void
+  setFilter: (value: Option[]) => void
+  options: Option[]
+  className?: string
 }
 
 const Search: FC<SearchProps> = ({
@@ -17,12 +19,15 @@ const Search: FC<SearchProps> = ({
   filter,
   setFilter,
   setSearch,
+  handleFind,
   className,
+  options,
 }) => {
   return (
     <div className={className}>
       <Input
         placeholder="Search property"
+        handleFind={handleFind}
         value={search}
         onChange={setSearch}
         button="Find Now"
@@ -31,16 +36,13 @@ const Search: FC<SearchProps> = ({
       <MultiDropdown
         value={filter}
         onChange={setFilter}
-        options={[
-          { key: "1", value: "Val" },
-          { key: "2", value: "Val2" },
-        ]}
+        options={options}
         pluralizeOptions={(option: Option[]) =>
-          !option.length ? "Filter" : `Выбрано: ${option.length}`
+          !option.length ? 'Filter' : `Выбрано: ${option.length}`
         }
       ></MultiDropdown>
     </div>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

@@ -1,2 +1,2 @@
 // eslint-disable-next-line no-console
-export const log = (...args: any): void => console.log(...args);
+export const log = (...args: any): void => console.log(...args)

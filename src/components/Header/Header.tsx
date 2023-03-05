@@ -1,20 +1,20 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState } from 'react'
 
-import Navbar from "@components/Navbar";
-import Logo from "@images/Logo.svg";
-import { log } from "@utils/index";
-import { AiOutlineClose } from "react-icons/ai";
-import { BiUser } from "react-icons/bi";
-import { BsHandbag } from "react-icons/bs";
-import { GiHamburgerMenu } from "react-icons/gi";
+import Navbar from '@components/Navbar'
+import Logo from '@images/Logo.svg'
+import { log } from '@utils/index'
+import { AiOutlineClose } from 'react-icons/ai'
+import { BiUser } from 'react-icons/bi'
+import { BsHandbag } from 'react-icons/bs'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
-import styles from "./Header.module.scss";
+import styles from './Header.module.scss'
 
 const Header: FC = () => {
-  const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
+  const [visibleMenu, setVisibleMenu] = useState<boolean>(false)
   const toggleBurgerMenu = () => {
-    setVisibleMenu((prev) => !prev);
-  };
+    setVisibleMenu((prev) => !prev)
+  }
   return (
     <div>
       <div className={styles.header}>
@@ -50,7 +50,7 @@ const Header: FC = () => {
       </div>
       <hr className={styles.header__line}></hr>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

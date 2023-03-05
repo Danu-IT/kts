@@ -1,48 +1,33 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from 'react'
 
-import ListProducts from "@components/ListProducts";
-import Loader from "@components/Loader";
-import { useGetFetching } from "@hooks/useGetFetching";
-import { ProductData } from "@type/index";
-import { API_ENDPOINTS } from "@utils/api";
-import axios from "axios";
+import ListProducts from '@components/ListProducts'
+import Loader from '@components/Loader'
+import { useGetFetching } from '@hooks/useGetFetching'
+import ProductsStore from '@store/ProductsStore/ProductsStore'
+import { ProductData } from '@type/index'
+import { API_ENDPOINTS } from '@utils/api'
+import { Meta } from '@utils/meta'
+import axios from 'axios'
+import { observer, useLocalStore } from 'mobx-react-lite'
 
 interface RelatedProps {
-  product: ProductData;
+  product: ProductData
 }
 
-const limit = 4;
+const limit = 4
 
 const Related: FC<RelatedProps> = ({ product }) => {
-  const [realatedProduct, setRelatedProduct] = useState<ProductData[]>([]);
-
-  const [getProducts, error_product, loading_product] = useGetFetching(
-    async () => {
-      const apiResponse = await axios.get(
-        `${API_ENDPOINTS.CATEGORIES}/${product.category.id}/products`,
-        {
-          params: {
-            limit: limit,
-            offset: 0,
-          },
-        }
-      );
-      const response = await apiResponse.data;
-      setRelatedProduct([...response]);
-    }
-  );
+  const productsStore = useLocalStore(() => new ProductsStore())
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    productsStore.getFilter(product.category, 0, limit)
+  }, [])
 
-  if (loading_product) {
-    return <Loader></Loader>;
+  if (productsStore.metaFilter === Meta.loading) {
+    return <Loader></Loader>
   }
 
-  return (
-    <ListProducts data={realatedProduct} error={error_product}></ListProducts>
-  );
-};
+  return <ListProducts data={productsStore.related}></ListProducts>
+}
 
-export default Related;
+export default observer(Related)

@@ -1,1 +1,1 @@
-export { default } from "./CustomOption.module.scss";
+export { default } from './CustomOption.module.scss'

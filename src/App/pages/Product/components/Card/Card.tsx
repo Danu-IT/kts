@@ -1,12 +1,12 @@
-import Button from "@components/Button";
-import { ProductData } from "@type/index";
+import Button from '@components/Button'
+import { ProductData } from '@type/index'
 
-import styles from "./Card.module.scss";
-import SwiperCustom from "../SwiperCustom";
+import styles from './Card.module.scss'
+import SwiperCustom from '../SwiperCustom'
 
 export type CardProps = {
-  product: ProductData;
-};
+  product: ProductData
+}
 
 const Card = ({ product }: CardProps) => {
   return (
@@ -26,7 +26,7 @@ const Card = ({ product }: CardProps) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

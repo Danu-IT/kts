@@ -1,18 +1,18 @@
-import { FC, useState } from "react";
+import { FC, useState } from 'react'
 
-import { Option } from "@type/index";
-import { FiFilter } from "react-icons/fi";
+import { Option } from '@type/index'
+import { FiFilter } from 'react-icons/fi'
 
-import CustomOption from "./components/CustomOption/CustomOption";
-import styles from "./MultiDropdown.module.scss";
+import CustomOption from './components/CustomOption/CustomOption'
+import styles from './MultiDropdown.module.scss'
 
 export type MultiDropdownProps = {
-  options: Option[];
-  value: Option[];
-  onChange: (value: Option[]) => void;
-  disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
-};
+  options: Option[]
+  value: Option[]
+  onChange: (value: Option[]) => void
+  disabled?: boolean
+  pluralizeOptions: (value: Option[]) => string
+}
 
 const MultiDropdown: FC<MultiDropdownProps> = ({
   options,
@@ -21,8 +21,8 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
   value,
   disabled,
 }: MultiDropdownProps) => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const dropDown = () => setVisible((prev) => (prev = !prev));
+  const [visible, setVisible] = useState<boolean>(false)
+  const dropDown = () => setVisible((prev) => (prev = !prev))
 
   return (
     <div className={styles.multiDropdown}>
@@ -41,8 +41,9 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
       {visible && (
         <div className={styles.multiDropdown__list}>
           {!disabled &&
-            options.map((option) => (
+            options.map((option, i) => (
               <CustomOption
+                key={option.id}
                 option={option}
                 value={value}
                 onChange={onChange}
@@ -51,7 +52,7 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default MultiDropdown;
+export default MultiDropdown

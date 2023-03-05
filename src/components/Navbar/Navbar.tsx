@@ -1,22 +1,22 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import { navRoutes } from "@components/Router/Router";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { navRoutes } from '@components/Router/Router'
+import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
-import styles from "./Navbar.module.scss";
+import styles from './Navbar.module.scss'
 
 interface NavbarProps {
-  className?: string;
-  style?: boolean;
-  toggle?: () => void;
+  className?: string
+  style?: boolean
+  toggle?: () => void
 }
 
 const Navbar: FC<NavbarProps> = ({ className, style, toggle }) => {
-  const location = useLocation();
-  let classname = styles.navbar;
+  const location = useLocation()
+  let classname = styles.navbar
   if (style) {
-    classname = styles.navbar_adaptive;
+    classname = styles.navbar_adaptive
   }
   return (
     <nav className={`${classname} ${className}`}>
@@ -24,7 +24,7 @@ const Navbar: FC<NavbarProps> = ({ className, style, toggle }) => {
         <Link
           onClick={toggle}
           className={
-            elem.path === location.pathname ? styles.navbar_active : ""
+            elem.path === location.pathname ? styles.navbar_active : ''
           }
           key={elem.path}
           to={elem.path}
@@ -33,7 +33,7 @@ const Navbar: FC<NavbarProps> = ({ className, style, toggle }) => {
         </Link>
       ))}
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

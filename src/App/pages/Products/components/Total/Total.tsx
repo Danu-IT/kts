@@ -1,23 +1,19 @@
-import { useState, useEffect } from "react";
+import { useEffect } from 'react'
 
-import { useGetFetching } from "@hooks/useGetFetching";
-import { API_ENDPOINTS } from "@utils/api";
-import axios from "axios";
+import ProductsStore from '@store/ProductsStore'
+import { useLocalStore } from '@utils/useLocalStore'
+import { observer } from 'mobx-react-lite'
 
-import styles from "./Total.module.scss";
+import styles from './Total.module.scss'
 
 const Total = () => {
-  const [total, setTotal] = useState<number>();
+  const totalStore = useLocalStore(() => new ProductsStore())
 
-  const [getAllProducts] = useGetFetching(async () => {
-    const apiResponse = await axios.get(API_ENDPOINTS.PRODUCTS);
-    const response = await apiResponse.data;
-    setTotal(response.length);
-  });
   useEffect(() => {
-    getAllProducts();
-  }, []);
-  return <span className={styles.total}>{total}</span>;
-};
+    totalStore.getTotal()
+  }, [])
 
-export default Total;
+  return <span className={styles.total}>{totalStore.total}</span>
+}
+
+export default observer(Total)

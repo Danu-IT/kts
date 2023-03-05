@@ -1,48 +1,61 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import ListProducts from "@components/ListProducts";
-import Loader from "@components/Loader";
-import { useGetFetching } from "@hooks/useGetFetching";
-import { ProductData, LoaderSize, Option } from "@type/index";
-import { API_ENDPOINTS } from "@utils/api";
-import axios from "axios";
-import InfiniteScroll from "react-infinite-scroll-component";
+import ListProducts from '@components/ListProducts'
+import Loader from '@components/Loader'
+import CategoriesStore from '@store/CategoriesStore'
+import ProductsStore from '@store/ProductsStore/index'
+import { useQueryParamsStore } from '@store/RootStore/hooks/useQueryParamsStore'
+import { LoaderSize, Option } from '@type/index'
+import { Meta } from '@utils/meta'
+import { useLocalStore } from '@utils/useLocalStore'
+import { observer } from 'mobx-react-lite'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { useSearchParams } from 'react-router-dom'
 
-import Search from "./components/Search";
-import Total from "./components/Total";
-import styles from "./Products.module.scss";
+import Search from './components/Search'
+import Total from './components/Total'
+import styles from './Products.module.scss'
 
 const Products = () => {
-  const [search, setSearch] = useState<string>("");
-  const [filter, setFilter] = useState<Option[]>([]);
+  const [search, setSearch] = useState<string>('')
+  const [filter, setFilter] = useState<Option[]>([])
 
-  const [products, setProducts] = useState<ProductData[]>([]);
-  const [offset, setOffset] = useState<number>(0);
+  const [offset, setOffset] = useState<number>(0)
 
-  const limit = 10;
+  const productsStore = useLocalStore(() => new ProductsStore())
+  const categoriesStore = useLocalStore(() => new CategoriesStore())
 
-  const [getProducts, error, loading] = useGetFetching(async () => {
-    const apiResponse = await axios.get(API_ENDPOINTS.PRODUCTS, {
-      params: {
-        limit: limit,
-        offset: offset,
-      },
-    });
+  const handleFind = () => {
+    setOffset(0)
+    if (filter.length == 0) {
+      productsStore.getAll(offset, search)
+    }
+  }
 
-    const response = await apiResponse.data;
-    setProducts((prev) => [...prev, ...response]);
-  });
+  useQueryParamsStore()
 
   useEffect(() => {
-    getProducts();
-  }, [offset]);
+    if (filter.length == 0) {
+      productsStore.getAll(offset, search)
+    }
+  }, [offset])
 
-  if (loading) {
+  useEffect(() => {
+    if (filter.length !== 0) {
+      productsStore.getFilter(filter[0], offset)
+    }
+  }, [filter, offset])
+
+  useEffect(() => {
+    categoriesStore.getCategories()
+  }, [])
+
+  if (productsStore.meta === Meta.loading && offset === 0) {
     return (
       <div className={styles.products__loader}>
         <Loader size={LoaderSize.l}></Loader>
       </div>
-    );
+    )
   }
 
   return (
@@ -56,27 +69,37 @@ const Products = () => {
       </div>
       <Search
         className={styles.products__search}
+        handleFind={handleFind}
         setFilter={setFilter}
         filter={filter}
         search={search}
+        options={categoriesStore.categories}
         setSearch={setSearch}
       ></Search>
       <h1 className={styles.products__total}>
         Total Product
         <Total />
       </h1>
-      <ListProducts data={products} error={error}></ListProducts>
-
+      <ListProducts
+        data={productsStore.products}
+        error={productsStore.meta === Meta.error && productsStore.meta}
+      ></ListProducts>
       <InfiniteScroll
-        dataLength={products.length}
-        next={() => setOffset((prev) => prev + limit)}
+        dataLength={productsStore.products.length}
+        next={() => setOffset((prev) => prev + productsStore.limit)}
+        className={styles.products__scroll}
         hasMore={true}
-        loader={<Loader size={LoaderSize.m}></Loader>}
+        loader={
+          productsStore.meta === Meta.loading && (
+            <Loader size={LoaderSize.m}></Loader>
+          )
+        }
       >
         <></>
       </InfiniteScroll>
+      {productsStore.products.length === 0 && <h1>Ничего не найдено</h1>}
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default observer(Products)
