@@ -174,7 +174,6 @@ export default class ProductsStore implements ILocalStore {
 
   destroy(): void {
     this._qpReaction()
-    // this._searchingReaction()
   }
 
   private readonly _qpReaction: IReactionDisposer = reaction(
