@@ -1,9 +1,8 @@
-import ReactDOM from "react-dom/client";
+import ReactDOM from 'react-dom/client'
 
-import "@styles/index.scss";
-import App from "./App";
+import './config/configureMobX'
+import '@styles/index.scss'
+import App from './App'
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(<App />);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(<App />)

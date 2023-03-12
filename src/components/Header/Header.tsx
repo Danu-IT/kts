@@ -1,20 +1,20 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState } from 'react'
 
-import Navbar from "@components/Navbar";
-import Logo from "@images/Logo.svg";
-import { log } from "@utils/index";
-import { AiOutlineClose } from "react-icons/ai";
-import { BiUser } from "react-icons/bi";
-import { BsHandbag } from "react-icons/bs";
-import { GiHamburgerMenu } from "react-icons/gi";
+import Navbar from '@components/Navbar'
+import Logo from '@images/Logo.svg'
+import { log } from '@utils/index'
+import { AiOutlineClose } from 'react-icons/ai'
+import { BiUser } from 'react-icons/bi'
+import { BsHandbag } from 'react-icons/bs'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
-import styles from "./Header.module.scss";
+import styles from './Header.module.scss'
 
 const Header: FC = () => {
-  const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
+  const [visibleMenu, setVisibleMenu] = useState<boolean>(false)
   const toggleBurgerMenu = () => {
-    setVisibleMenu((prev) => !prev);
-  };
+    setVisibleMenu((prev) => !prev)
+  }
   return (
     <div>
       <div className={styles.header}>
@@ -22,7 +22,7 @@ const Header: FC = () => {
           <img className={styles.header__logo_mg} src={Logo} alt="" />
           <span className={styles.header__logo_text}>Lalasia</span>
         </div>
-        <Navbar style={false} className={styles.header__navbar}></Navbar>
+        <Navbar adaptive={false} className={styles.header__navbar}></Navbar>
         <div className={styles.header__icons}>
           <BsHandbag width={30} height={30}></BsHandbag>
           <BiUser width={30} height={30}></BiUser>
@@ -41,7 +41,7 @@ const Header: FC = () => {
               ></AiOutlineClose>
               <Navbar
                 toggle={toggleBurgerMenu}
-                style={true}
+                adaptive={true}
                 className={styles.header__navbar}
               ></Navbar>
             </div>
@@ -50,7 +50,7 @@ const Header: FC = () => {
       </div>
       <hr className={styles.header__line}></hr>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

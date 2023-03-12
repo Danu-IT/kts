@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react'
 
-import classNames from "classnames";
+import classNames from 'classnames'
 
-import styles from "./CheckBox.module.scss";
+import styles from './CheckBox.module.scss'
 
 export type CheckBoxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  "onChange"
+  'onChange'
 > & {
-  checked?: boolean;
-  onChange: (value: boolean) => void;
-  disabled?: boolean;
-};
+  checked?: boolean
+  onChange: (value: boolean) => void
+  disabled?: boolean
+}
 
 const CheckBox: React.FC<CheckBoxProps> = ({
   checked,
@@ -19,9 +19,9 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   disabled,
   ...props
 }) => {
-  let classInput = classNames(styles.checkbox_box);
+  let classInput = classNames(styles.checkbox_box)
   if (!disabled || checked) {
-    classInput = classNames(styles.checkbox_box, styles.checkbox_hover);
+    classInput = classNames(styles.checkbox_box, styles.checkbox_hover)
   }
   return (
     <label className={styles.checkbox}>
@@ -35,7 +35,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
       />
       <span className={classInput}></span>
     </label>
-  );
-};
+  )
+}
 
-export default CheckBox;
+export default CheckBox

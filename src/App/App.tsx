@@ -1,8 +1,8 @@
-import "./App.scss";
+import './App.scss'
 
-import Header from "@components/Header";
-import Router from "@components/Router";
-import { BrowserRouter } from "react-router-dom";
+import Header from '@components/Header'
+import Router from '@components/Router'
+import { BrowserRouter } from 'react-router-dom'
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
         <Router />
       </BrowserRouter>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

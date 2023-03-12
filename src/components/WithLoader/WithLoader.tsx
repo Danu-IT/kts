@@ -1,11 +1,10 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import Loader from "@components/Loader";
+import Loader from '@components/Loader'
 
 export type WithLoaderProps = React.PropsWithChildren<{
-  loading: boolean;
-  children: React.ReactNode;
-}>;
+  loading: boolean
+}>
 
 const WithLoader: FC<WithLoaderProps> = ({
   loading,
@@ -16,6 +15,6 @@ const WithLoader: FC<WithLoaderProps> = ({
       {children}
       {loading && <Loader></Loader>}
     </div>
-  );
-};
-export default WithLoader;
+  )
+}
+export default WithLoader

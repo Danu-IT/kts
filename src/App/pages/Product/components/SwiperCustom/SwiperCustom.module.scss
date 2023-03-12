@@ -1,4 +1,4 @@
-@import "@styles/variable.scss";
+@import '@styles/variable.scss';
 
 .swiper {
   position: relative;
@@ -28,6 +28,7 @@
     width: 70px;
     height: 70px;
     cursor: pointer;
+    transform: rotate(180deg);
   }
 
   &__right {

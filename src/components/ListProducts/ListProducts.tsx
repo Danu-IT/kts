@@ -1,26 +1,27 @@
-import React, { FC } from "react";
+import React, { FC } from 'react'
 
-import Card from "@components/Card";
-import { ProductData } from "@type/index";
-import { useNavigate } from "react-router-dom";
+import Card from '@components/Card'
+import { ProductData } from '@type/index'
+import { Meta } from '@utils/meta'
+import { useNavigate } from 'react-router-dom'
 
-import styles from "./ListProducts.module.scss";
+import styles from './ListProducts.module.scss'
 
 interface ListProductsProps {
-  error: string;
-  data: ProductData[];
+  error?: false | Meta.error
+  data: ProductData[]
 }
 
 const ListProducts: FC<ListProductsProps> = ({ error, data }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleCard = (id: number) => {
-    navigate(`/products/${id}`, { replace: true });
-  };
+    navigate(`/products/${id}`, { replace: true })
+  }
 
   return (
     <div className={styles.cards}>
-      {error ? (
+      {error === Meta.error ? (
         <div>Ошибка</div>
       ) : (
         data.map((product: ProductData) => (
@@ -36,7 +37,7 @@ const ListProducts: FC<ListProductsProps> = ({ error, data }) => {
         ))
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ListProducts;
+export default ListProducts

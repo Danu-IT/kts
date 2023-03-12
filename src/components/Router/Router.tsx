@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react'
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom'
 
-import Product from "../../App/pages/Product";
-import Products from "../../App/pages/Products";
+import Product from '../../App/pages/Product'
+import Products from '../../App/pages/Products'
 
-type Props = {};
+type Props = {}
 
 const publicRoutes = [
-  { path: "/", component: Products },
-  { path: "/products/:id", component: Product },
-];
+  { path: '/', component: Products },
+  { path: '/products/:id', component: Product },
+]
 
 export const navRoutes = [
-  { path: "/", name: "Products" },
-  { path: "/categories", name: "Categories" },
-  { path: "/aboutUs", name: "About Us" },
-];
+  { path: '/', name: 'Products' },
+  { path: '/categories', name: 'Categories' },
+  { path: '/aboutUs', name: 'About Us' },
+]
 
 const Router = (props: Props) => {
   return (
@@ -30,7 +30,7 @@ const Router = (props: Props) => {
       ))}
       <Route path="*" element={<Products />} />
     </Routes>
-  );
-};
+  )
+}
 
-export default Router;
+export default Router

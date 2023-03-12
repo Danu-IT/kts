@@ -1,7 +1,7 @@
-@import "@styles/variable.scss";
+@import '@styles/variable.scss';
 
 .input {
-  font-family: "Eudoxus Sans";
+  font-family: 'Eudoxus Sans';
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -14,6 +14,7 @@
   color: #afadb5;
   padding-left: 28px;
   box-shadow: 0px 4px 20px rgba(175, 173, 181, 0.2);
+  padding-left: 70px;
 
   &__cont {
     position: relative;
@@ -26,7 +27,7 @@
   }
 
   &_disabled {
-    font-family: "Roboto";
+    font-family: 'Roboto';
     font-style: normal;
     background: #ffffff;
     font-weight: 400;

@@ -1,16 +1,16 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import { LoaderSize } from "@type/index";
-import classNames from "classnames";
+import { LoaderSize } from '@type/index'
+import classNames from 'classnames'
 
-import styles from "./Loader.module.scss";
+import styles from './Loader.module.scss'
 
 export type LoaderProps = {
-  loading?: boolean;
-  size?: LoaderSize;
-  className?: string;
-  color?: string;
-};
+  loading?: boolean
+  size?: LoaderSize
+  className?: string
+  color?: string
+}
 
 const Loader: FC<LoaderProps> = ({
   loading = true,
@@ -19,23 +19,23 @@ const Loader: FC<LoaderProps> = ({
   color,
 }: LoaderProps) => {
   if (!loading) {
-    return null;
+    return null
   }
 
-  const loaderClassName = classNames(styles.testClass, className, {
-    [styles.small]: size === "s",
-    [styles.large]: size === "l",
-  });
+  const loaderClassName = classNames(styles.loader, className, {
+    [styles.small]: size === 's',
+    [styles.large]: size === 'l',
+  })
 
   return (
     <div
       style={{
         borderColor: color,
-        borderBottomColor: "transparent",
+        borderBottomColor: 'transparent',
       }}
       className={loaderClassName}
     ></div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader
