@@ -31,14 +31,13 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       {...props}
-      style={{
-        backgroundColor: color === 'light' ? 'white' : '',
-        color: color === 'light' ? 'black' : 'white',
-        border: color === 'light' ? '1px solid #F3F3F3' : '',
-      }}
       disabled={loading || disabled}
       onClick={onClick}
-      className={classButton}
+      className={
+        color === 'light'
+          ? classNames(classButton, styles.button__light)
+          : classButton
+      }
     >
       {loading && <Loader color={'white'} size={LoaderSize.s}></Loader>}
       {children}

@@ -22,7 +22,7 @@ const Loader: FC<LoaderProps> = ({
     return null
   }
 
-  const loaderClassName = classNames(styles.testClass, className, {
+  const loaderClassName = classNames(styles.loader, className, {
     [styles.small]: size === 's',
     [styles.large]: size === 'l',
   })

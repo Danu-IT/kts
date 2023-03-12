@@ -12,12 +12,12 @@ interface OptionProps {
 }
 
 const CustomOption: FC<OptionProps> = ({ value, option, onChange }) => {
-  let classValue = classNames(styles.multiDropdown__check)
+  const isSelected = value.some(({ id }) => id === option.id)
 
-  value.forEach((el) => {
-    if (el.id === option.id)
-      classValue = classNames(styles.multiDropdown__check, styles.checked)
-  })
+  const className = classNames(
+    styles.multiDropdown__check,
+    isSelected && styles.checked
+  )
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -36,10 +36,10 @@ const CustomOption: FC<OptionProps> = ({ value, option, onChange }) => {
         <input
           onChange={(e) => handleChange(e, option)}
           defaultChecked
-          className={classValue}
+          className={className}
           type="checkbox"
         ></input>
-        <span className={classValue}>{option.name}</span>
+        <span className={className}>{option.name}</span>
       </label>
     </span>
   )

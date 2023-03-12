@@ -22,7 +22,7 @@ const Header: FC = () => {
           <img className={styles.header__logo_mg} src={Logo} alt="" />
           <span className={styles.header__logo_text}>Lalasia</span>
         </div>
-        <Navbar style={false} className={styles.header__navbar}></Navbar>
+        <Navbar adaptive={false} className={styles.header__navbar}></Navbar>
         <div className={styles.header__icons}>
           <BsHandbag width={30} height={30}></BsHandbag>
           <BiUser width={30} height={30}></BiUser>
@@ -41,7 +41,7 @@ const Header: FC = () => {
               ></AiOutlineClose>
               <Navbar
                 toggle={toggleBurgerMenu}
-                style={true}
+                adaptive={true}
                 className={styles.header__navbar}
               ></Navbar>
             </div>

@@ -4,11 +4,10 @@ import ListProducts from '@components/ListProducts'
 import Loader from '@components/Loader'
 import CategoriesStore from '@store/CategoriesStore'
 import ProductsStore from '@store/ProductsStore/index'
-import { useQueryParamsStore } from '@store/RootStore/hooks/useQueryParamsStore'
+import { useQueryParamsStoreInit } from '@store/RootStore/hooks/useQueryParamsStoreInit'
 import { LoaderSize, Option } from '@type/index'
 import { Meta } from '@utils/meta'
-import { useLocalStore } from '@utils/useLocalStore'
-import { observer } from 'mobx-react-lite'
+import { observer, useLocalStore } from 'mobx-react-lite'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useSearchParams } from 'react-router-dom'
 
@@ -17,40 +16,53 @@ import Total from './components/Total'
 import styles from './Products.module.scss'
 
 const Products = () => {
-  const [search, setSearch] = useState<string>('')
-  const [filter, setFilter] = useState<Option[]>([])
+  useQueryParamsStoreInit()
 
-  const [offset, setOffset] = useState<number>(0)
+  const [searchParams, setSearchParams] = useSearchParams('')
 
   const productsStore = useLocalStore(() => new ProductsStore())
   const categoriesStore = useLocalStore(() => new CategoriesStore())
 
   const handleFind = () => {
-    setOffset(0)
-    if (filter.length == 0) {
-      productsStore.getAll(offset, search)
+    productsStore._offset = 0
+    if (productsStore.filter.length == 0) {
+      productsStore.getAll(productsStore.search)
     }
   }
 
-  useQueryParamsStore()
+  useEffect(() => {
+    if (productsStore.filter.length == 0) {
+      productsStore.getAll(productsStore.search)
+    }
+  }, [productsStore._filter, productsStore._offset])
 
   useEffect(() => {
-    if (filter.length == 0) {
-      productsStore.getAll(offset, search)
+    const timeout = setTimeout(() => {
+      setSearchParams({ search: productsStore.search })
+      if (productsStore.filter.length == 0) {
+        productsStore.getAll(productsStore.search)
+      }
+    }, 800)
+    return () => {
+      clearTimeout(timeout)
     }
-  }, [offset])
+  }, [productsStore.search])
 
   useEffect(() => {
-    if (filter.length !== 0) {
-      productsStore.getFilter(filter[0], offset)
+    if (productsStore._filter.length !== 0) {
+      productsStore.getFilter(productsStore._filter[0], productsStore._offset)
     }
-  }, [filter, offset])
+  }, [productsStore._filter, productsStore._offset])
 
   useEffect(() => {
     categoriesStore.getCategories()
+    let searchParam = searchParams.get('search')
+    if (searchParam === null) searchParam = ''
+    productsStore._search = String(searchParam)
+    handleFind()
   }, [])
 
-  if (productsStore.meta === Meta.loading && offset === 0) {
+  if (productsStore.meta === Meta.loading && productsStore._offset === 0) {
     return (
       <div className={styles.products__loader}>
         <Loader size={LoaderSize.l}></Loader>
@@ -70,11 +82,11 @@ const Products = () => {
       <Search
         className={styles.products__search}
         handleFind={handleFind}
-        setFilter={setFilter}
-        filter={filter}
-        search={search}
+        setFilter={(answer) => (productsStore._filter = answer)}
+        filter={productsStore.filter}
+        search={productsStore.search}
         options={categoriesStore.categories}
-        setSearch={setSearch}
+        setSearch={(answer) => (productsStore._search = answer)}
       ></Search>
       <h1 className={styles.products__total}>
         Total Product
@@ -86,7 +98,9 @@ const Products = () => {
       ></ListProducts>
       <InfiniteScroll
         dataLength={productsStore.products.length}
-        next={() => setOffset((prev) => prev + productsStore.limit)}
+        next={() =>
+          (productsStore._offset = productsStore.offset + productsStore.limit)
+        }
         className={styles.products__scroll}
         hasMore={true}
         loader={

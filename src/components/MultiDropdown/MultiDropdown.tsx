@@ -22,7 +22,7 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
   disabled,
 }: MultiDropdownProps) => {
   const [visible, setVisible] = useState<boolean>(false)
-  const dropDown = () => setVisible((prev) => (prev = !prev))
+  const dropDown = () => setVisible((prev) => !prev)
 
   return (
     <div className={styles.multiDropdown}>
@@ -41,7 +41,7 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
       {visible && (
         <div className={styles.multiDropdown__list}>
           {!disabled &&
-            options.map((option, i) => (
+            options.map((option) => (
               <CustomOption
                 key={option.id}
                 option={option}

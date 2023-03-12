@@ -1,10 +1,8 @@
-import { FC } from 'react'
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 
 import Loader from '@components/Loader'
 import ProductItemStore from '@store/ProductItemStore/ProductItemStore'
 import { LoaderSize } from '@type/index'
-import { log } from '@utils/index'
 import { Meta } from '@utils/meta'
 import { useLocalStore } from '@utils/useLocalStore'
 import { observer } from 'mobx-react-lite'
@@ -26,7 +24,7 @@ const Product: FC = () => {
   if (productStore.meta === Meta.loading) {
     return (
       <div className={styles.product__loader}>
-        <Loader size={LoaderSize.l}></Loader>
+        <Loader size={LoaderSize.l} />
       </div>
     )
   }

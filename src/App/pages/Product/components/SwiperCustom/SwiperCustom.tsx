@@ -28,16 +28,14 @@ const SwiperCustom: FC<SwiperCustomProps> = ({ slides }) => {
         }}
       >
         <div className={styles.swiper__slides}>
-          {slides &&
-            slides.map((slide) => (
-              <SwiperSlide key={slide}>
-                <img className={styles.swiper__slide} src={slide} alt="" />
-              </SwiperSlide>
-            ))}
+          {slides?.map((slide) => (
+            <SwiperSlide key={slide}>
+              <img className={styles.swiper__slide} src={slide} alt="" />
+            </SwiperSlide>
+          ))}
         </div>
         <img
           onClick={() => swiperRef.current?.slidePrev()}
-          style={{ transform: 'rotate(180deg)' }}
           className={styles.swiper__left}
           src={Arrow}
           alt=""

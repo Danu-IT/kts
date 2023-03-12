@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { navRoutes } from '@components/Router/Router'
+import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
@@ -8,18 +9,19 @@ import styles from './Navbar.module.scss'
 
 interface NavbarProps {
   className?: string
-  style?: boolean
+  adaptive?: boolean
   toggle?: () => void
 }
 
-const Navbar: FC<NavbarProps> = ({ className, style, toggle }) => {
+const Navbar: FC<NavbarProps> = ({ className, adaptive, toggle }) => {
   const location = useLocation()
-  let classname = styles.navbar
-  if (style) {
-    classname = styles.navbar_adaptive
-  }
   return (
-    <nav className={`${classname} ${className}`}>
+    <nav
+      className={classNames(
+        className,
+        adaptive ? styles.navbar_adaptive : styles.navbar
+      )}
+    >
       {navRoutes.map((elem) => (
         <Link
           onClick={toggle}

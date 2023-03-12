@@ -1,7 +1,7 @@
-@import "@styles/variable.scss";
+@import '@styles/variable.scss';
 
 .button {
-  font-family: "Eudoxus Sans";
+  font-family: 'Eudoxus Sans';
   font-weight: 700;
   font-style: normal;
   font-size: 18px;
@@ -16,6 +16,11 @@
   width: 100%;
   cursor: pointer;
   transition: opacity 0.2s;
+  &__light {
+    background-color: white;
+    color: black;
+    border: 1px solid #f3f3f3;
+  }
   &:hover {
     opacity: 0.7;
   }

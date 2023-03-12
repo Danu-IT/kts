@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from '@utils/api'
 import { log } from '@utils/index'
 import { Meta } from '@utils/meta'
 import axios from 'axios'
-import { makeObservable, observable, computed, runInAction } from 'mobx'
+import { makeObservable, observable, computed, runInAction, action } from 'mobx'
 
 import { ILocalStore } from '../../utils/useLocalStore'
 
@@ -19,6 +19,7 @@ export default class CategoriesStore implements ILocalStore {
       _meta: observable,
       categories: computed,
       meta: computed,
+      getCategories: action,
     })
   }
 

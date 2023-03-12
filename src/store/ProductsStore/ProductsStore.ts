@@ -1,6 +1,6 @@
+import rootStore from '@store/RootStore/instance'
 import { Option, ProductData } from '@type/index'
 import { API_ENDPOINTS } from '@utils/api'
-import { log } from '@utils/index'
 import { Meta } from '@utils/meta'
 import { ILocalStore } from '@utils/useLocalStore'
 import axios from 'axios'
@@ -12,9 +12,8 @@ import {
   runInAction,
   IReactionDisposer,
   reaction,
+  makeAutoObservable,
 } from 'mobx'
-
-import rootStore from '../RootStore/instance'
 
 type PrivateFields =
   | '_products'
@@ -23,17 +22,24 @@ type PrivateFields =
   | '_metaFilter'
   | '_filteredProducts'
   | '_related'
+  | '_offset'
+  | '_search'
+  | '_filter'
 
 export default class ProductsStore implements ILocalStore {
   private _products: ProductData[] = []
   private _filteredProducts: ProductData[] = []
   private _related: ProductData[] = []
+  _filter: Option[] = []
+
+  _search: string = ''
 
   private _meta: Meta = Meta.initial
   private _metaFilter: Meta = Meta.initial
 
   private _limit: number = 10
   private _total: number = 0
+  _offset: number = 0
 
   constructor() {
     makeObservable<ProductsStore, PrivateFields>(this, {
@@ -41,6 +47,9 @@ export default class ProductsStore implements ILocalStore {
       _filteredProducts: observable.ref,
       _related: observable.ref,
       _total: observable.ref,
+      _filter: observable.ref,
+      _search: observable,
+      _offset: observable,
       _meta: observable,
       _metaFilter: observable,
       products: computed,
@@ -49,15 +58,29 @@ export default class ProductsStore implements ILocalStore {
       metaFilter: computed,
       total: computed,
       related: computed,
+      offset: computed,
+      filter: computed,
+      limit: computed,
       getAll: action,
       getTotal: action,
       getFilter: action,
-      // filtered: action,
     })
+  }
+
+  get search(): string {
+    return this._search
+  }
+
+  get filter(): Option[] {
+    return this._filter
   }
 
   get limit(): number {
     return this._limit
+  }
+
+  get offset(): number {
+    return this._offset
   }
 
   get total(): number {
@@ -84,14 +107,14 @@ export default class ProductsStore implements ILocalStore {
     return this._related
   }
 
-  getAll = async (offset: number, title: string = '') => {
+  getAll = async (title: string = '') => {
     this._meta = Meta.loading
     const response = await axios.get(
       `${API_ENDPOINTS.PRODUCTS}/?title=${title}`,
       {
         params: {
           limit: this._limit,
-          offset: offset,
+          offset: this._offset,
         },
       }
     )
@@ -100,7 +123,7 @@ export default class ProductsStore implements ILocalStore {
         this._meta = Meta.error
         return
       }
-      if (offset === 0) {
+      if (this._offset === 0) {
         this._products = []
       }
 
@@ -109,17 +132,13 @@ export default class ProductsStore implements ILocalStore {
     })
   }
 
-  getFilter = async (
-    filter: Option,
-    offset: number,
-    limit: number = this._limit
-  ) => {
+  getFilter = async (filter: Option, limit: number = this._limit) => {
     this._metaFilter = Meta.loading
     const response = await axios.get(
       `${API_ENDPOINTS.CATEGORIES}/${filter.id}/products`,
       {
         params: {
-          offset: offset,
+          offset: this._offset,
           limit: limit,
         },
       }
@@ -129,7 +148,7 @@ export default class ProductsStore implements ILocalStore {
         this._metaFilter = Meta.error
         return
       }
-      if (offset === 0) {
+      if (this._offset === 0) {
         this._products = []
       }
       if (limit === 4) {
@@ -155,12 +174,20 @@ export default class ProductsStore implements ILocalStore {
 
   destroy(): void {
     this._qpReaction()
+    // this._searchingReaction()
   }
 
   private readonly _qpReaction: IReactionDisposer = reaction(
     () => rootStore.query.getParam('search'),
     (search) => {
-      log('search', search)
+      this.getAll(String(search))
     }
   )
+
+  // private readonly _searchingReaction: IReactionDisposer = reaction(
+  //   () => {
+  //     this._offset, this._filter
+  //   },
+  //   (search) => this.getAll(this.search)
+  // )
 }

@@ -1,5 +1,4 @@
 import { API_ENDPOINTS } from '@utils/api'
-import { log } from '@utils/index'
 import { Meta } from '@utils/meta'
 import axios from 'axios'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx'
@@ -8,7 +7,7 @@ import { ProductData } from '../../type/index'
 type PrivateFields = '_product' | '_meta'
 
 export default class ProductItemStore {
-  private _product: ProductData = {} as ProductData
+  private _product: ProductData | null = null
   private _meta: Meta = Meta.initial
 
   constructor() {
@@ -20,7 +19,7 @@ export default class ProductItemStore {
       getItem: action,
     })
   }
-  get product(): ProductData {
+  get product(): ProductData | null {
     return this._product
   }
 

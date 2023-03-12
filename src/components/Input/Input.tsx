@@ -14,7 +14,7 @@ export type InputProps = Omit<
   onChange: (value: string) => void
   disabled?: boolean
   button?: string
-  icons?: boolean
+  icons: boolean
   handleFind: () => void
 }
 
@@ -39,7 +39,6 @@ const Input: FC<InputProps> = ({
       {icons && <RiSearch2Line className={styles.input__icons}></RiSearch2Line>}
       <input
         {...props}
-        style={{ paddingLeft: icons ? '70px' : '24px' }}
         disabled={disabled}
         className={`${classInput} ${props.className}`}
         value={value}
