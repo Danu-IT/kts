@@ -1,18 +1,18 @@
-import { FC, useState } from 'react'
+import React, { FC, useState } from "react";
 
-import { Option } from '@type/index'
-import { FiFilter } from 'react-icons/fi'
+import { Option } from "type/index";
+import { FiFilter } from "react-icons/fi";
 
-import CustomOption from './components/CustomOption/CustomOption'
-import styles from './MultiDropdown.module.scss'
+import CustomOption from "./components/CustomOption/CustomOption";
+import styles from "./MultiDropdown.module.scss";
 
 export type MultiDropdownProps = {
-  options: Option[]
-  value: Option[]
-  onChange: (value: Option[]) => void
-  disabled?: boolean
-  pluralizeOptions: (value: Option[]) => string
-}
+  options: Option[];
+  value: Option[];
+  onChange: (value: Option[]) => void;
+  disabled?: boolean;
+  pluralizeOptions: (value: Option[]) => string;
+};
 
 const MultiDropdown: FC<MultiDropdownProps> = ({
   options,
@@ -21,8 +21,8 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
   value,
   disabled,
 }: MultiDropdownProps) => {
-  const [visible, setVisible] = useState<boolean>(false)
-  const dropDown = () => setVisible((prev) => !prev)
+  const [visible, setVisible] = useState<boolean>(false);
+  const dropDown = () => setVisible((prev) => !prev);
 
   return (
     <div className={styles.multiDropdown}>
@@ -31,8 +31,7 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
           disabled={disabled}
           onClick={dropDown}
           className={styles.multiDropdown__btn}
-          type="button"
-        ></input>
+          type="button"></input>
         {pluralizeOptions(value)}
         {!value.length && (
           <FiFilter className={styles.multiDropdown__filter}></FiFilter>
@@ -46,13 +45,12 @@ const MultiDropdown: FC<MultiDropdownProps> = ({
                 key={option.id}
                 option={option}
                 value={value}
-                onChange={onChange}
-              ></CustomOption>
+                onChange={onChange}></CustomOption>
             ))}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default MultiDropdown
+export default MultiDropdown;

@@ -1,8 +1,9 @@
-import { Option } from '@type/index'
-import { API_ENDPOINTS } from '@utils/api'
-import { log } from '@utils/index'
-import { Meta } from '@utils/meta'
+import { Option } from 'type/index'
+import { API_ENDPOINTS } from 'utils/api'
+import { log } from 'utils/index'
+import { Meta } from 'utils/meta'
 import axios from 'axios'
+
 import { makeObservable, observable, computed, runInAction, action } from 'mobx'
 
 import { ILocalStore } from '../../utils/useLocalStore'
