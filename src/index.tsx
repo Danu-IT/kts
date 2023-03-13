@@ -1,8 +1,11 @@
-import ReactDOM from 'react-dom/client'
+import * as React from "react";
+import { render } from "react-dom";
+import "regenerator-runtime";
+import "styles/index.scss";
+import App from "./App";
 
-import './config/configureMobX'
-import '@styles/index.scss'
-import App from './App'
+render(<App />, document.getElementById("root"));
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-root.render(<App />)
+if (module.hot) {
+  module.hot.accept();
+}

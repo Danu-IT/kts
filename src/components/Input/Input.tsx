@@ -1,22 +1,22 @@
-import { FC } from 'react'
+import React, { FC } from "react";
 
-import Button from '@components/Button'
-import classNames from 'classnames'
-import { RiSearch2Line } from 'react-icons/ri'
+import Button from "components/Button";
+import classNames from "classnames";
+import { RiSearch2Line } from "react-icons/ri";
 
-import styles from './Input.module.scss'
+import styles from "./Input.module.scss";
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  'onChange'
+  "onChange"
 > & {
-  value: string
-  onChange: (value: string) => void
-  disabled?: boolean
-  button?: string
-  icons: boolean
-  handleFind: () => void
-}
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  button?: string;
+  icons: boolean;
+  handleFind: () => void;
+};
 
 const Input: FC<InputProps> = ({
   value,
@@ -27,12 +27,12 @@ const Input: FC<InputProps> = ({
   handleFind,
   ...props
 }: InputProps) => {
-  let classInput = classNames(styles.input)
+  let classInput = classNames(styles.input);
   if (disabled) {
-    classInput = classNames(styles.input, styles.input_disabled)
+    classInput = classNames(styles.input, styles.input_disabled);
   }
   if (button) {
-    classInput = classNames(styles.input, styles.input_width)
+    classInput = classNames(styles.input, styles.input_width);
   }
   return (
     <label className={styles.input__cont}>
@@ -51,7 +51,7 @@ const Input: FC<InputProps> = ({
         </div>
       )}
     </label>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

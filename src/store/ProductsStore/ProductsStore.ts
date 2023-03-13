@@ -1,9 +1,10 @@
-import rootStore from '@store/RootStore/instance'
-import { Option, ProductData } from '@type/index'
-import { API_ENDPOINTS } from '@utils/api'
-import { Meta } from '@utils/meta'
-import { ILocalStore } from '@utils/useLocalStore'
+import rootStore from 'store/RootStore/instance'
+import { Option, ProductData } from 'type/index'
+import { API_ENDPOINTS } from 'utils/api'
+import { Meta } from 'utils/meta'
+import { ILocalStore } from 'utils/useLocalStore'
 import axios from 'axios'
+
 import {
   computed,
   makeObservable,

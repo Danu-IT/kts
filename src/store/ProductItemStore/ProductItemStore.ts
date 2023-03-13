@@ -1,5 +1,5 @@
-import { API_ENDPOINTS } from '@utils/api'
-import { Meta } from '@utils/meta'
+import { API_ENDPOINTS } from 'utils/api'
+import { Meta } from 'utils/meta'
 import axios from 'axios'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx'
 
