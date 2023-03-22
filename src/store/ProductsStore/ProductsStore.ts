@@ -1,9 +1,10 @@
-import rootStore from '@store/RootStore/instance'
-import { Option, ProductData } from '@type/index'
-import { API_ENDPOINTS } from '@utils/api'
-import { Meta } from '@utils/meta'
-import { ILocalStore } from '@utils/useLocalStore'
+import rootStore from 'store/RootStore/instance'
+import { Option, ProductData } from 'type/index'
+import { API_ENDPOINTS } from 'utils/api'
+import { Meta } from 'utils/meta'
+import { ILocalStore } from 'utils/useLocalStore'
 import axios from 'axios'
+
 import {
   computed,
   makeObservable,
@@ -12,7 +13,6 @@ import {
   runInAction,
   IReactionDisposer,
   reaction,
-  makeAutoObservable,
 } from 'mobx'
 
 type PrivateFields =
@@ -60,6 +60,7 @@ export default class ProductsStore implements ILocalStore {
       related: computed,
       offset: computed,
       filter: computed,
+      search: computed,
       limit: computed,
       getAll: action,
       getTotal: action,
@@ -107,10 +108,10 @@ export default class ProductsStore implements ILocalStore {
     return this._related
   }
 
-  getAll = async (title: string = '') => {
+  getAll = async () => {
     this._meta = Meta.loading
     const response = await axios.get(
-      `${API_ENDPOINTS.PRODUCTS}/?title=${title}`,
+      `${API_ENDPOINTS.PRODUCTS}/?title=${this._search}`,
       {
         params: {
           limit: this._limit,
@@ -126,36 +127,49 @@ export default class ProductsStore implements ILocalStore {
       if (this._offset === 0) {
         this._products = []
       }
-
       this._products = [...this._products, ...response.data]
+      if(this.search && this.filter){
+        // this._products = [...this._filteredProducts]
+        console.log(this._products)
+      } 
       this._meta = Meta.success
     })
   }
 
-  getFilter = async (filter: Option, limit: number = this._limit) => {
+  getFilter = async (filter: Option[], limit: number = this._limit) => {
     this._metaFilter = Meta.loading
-    const response = await axios.get(
-      `${API_ENDPOINTS.CATEGORIES}/${filter.id}/products`,
-      {
-        params: {
-          offset: this._offset,
-          limit: limit,
-        },
-      }
-    )
-    runInAction(() => {
-      if (!response) {
-        this._metaFilter = Meta.error
-        return
-      }
-      if (this._offset === 0) {
-        this._products = []
-      }
-      if (limit === 4) {
-        this._related = [...response.data]
-      }
-      this._products = [...response.data]
-      this._metaFilter = Meta.success
+    this._filteredProducts = []
+    filter.forEach(async (item) => {
+      const response = await axios.get(
+        `${API_ENDPOINTS.CATEGORIES}/${item.id}/products`,
+        {
+          params: {
+            offset: this._offset,
+            limit: limit,
+          },
+        }
+      )
+      runInAction(() => {
+        if (!response) {
+          this._metaFilter = Meta.error
+          return
+        }
+        if (this._offset === 0) {
+          this._products = []
+        }
+        if (limit === 4) {
+          this._related = [...response.data]
+        }
+        // console.log(item)
+        if(!this.search){
+          this._products = [...this._products, ...response.data]
+        } else {
+          this._filteredProducts = [...this._filteredProducts, ...response.data]
+          // this.getAll()
+          console.log(this._filteredProducts)
+        }
+        this._metaFilter = Meta.success
+      })
     })
   }
 
@@ -174,20 +188,32 @@ export default class ProductsStore implements ILocalStore {
 
   destroy(): void {
     this._qpReaction()
-    // this._searchingReaction()
+    this._qpOffset()
+    this._qpFilter()
   }
 
   private readonly _qpReaction: IReactionDisposer = reaction(
     () => rootStore.query.getParam('search'),
     (search) => {
-      this.getAll(String(search))
+      this.getAll()
     }
   )
 
-  // private readonly _searchingReaction: IReactionDisposer = reaction(
-  //   () => {
-  //     this._offset, this._filter
-  //   },
-  //   (search) => this.getAll(this.search)
-  // )
+  private readonly _qpOffset: IReactionDisposer = reaction(
+    () => this.offset,
+    (offset) => {
+      if (offset === 0) {
+        this._products = []
+      }
+    }
+  )
+  
+  private readonly _qpFilter: IReactionDisposer = reaction(
+    () => this.filter,
+    () => {
+      this._offset = 0
+      this._products = []
+    }
+
+  )
 }

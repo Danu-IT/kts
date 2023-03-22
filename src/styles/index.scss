@@ -1,5 +1,3 @@
-@import "../assets/fonts/EudoxusSans/fonts";
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,6 +7,7 @@ body {
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 100px;
+  font-family: 'Eudoxus Sans';
   @media (max-width: 1000px) {
     padding: 0 15px;
   }

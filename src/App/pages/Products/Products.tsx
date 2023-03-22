@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import ListProducts from '@components/ListProducts'
-import Loader from '@components/Loader'
-import CategoriesStore from '@store/CategoriesStore'
-import ProductsStore from '@store/ProductsStore/index'
-import { useQueryParamsStoreInit } from '@store/RootStore/hooks/useQueryParamsStoreInit'
-import { LoaderSize, Option } from '@type/index'
-import { Meta } from '@utils/meta'
+import ListProducts from 'components/ListProducts'
+import Loader from 'components/Loader'
+import CategoriesStore from 'store/CategoriesStore'
+import ProductsStore from 'store/ProductsStore/index'
+import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit'
+import { LoaderSize, Option } from 'type/index'
+import { Meta } from 'utils/meta'
 import { observer, useLocalStore } from 'mobx-react-lite'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useSearchParams } from 'react-router-dom'
@@ -26,13 +26,13 @@ const Products = () => {
   const handleFind = () => {
     productsStore._offset = 0
     if (productsStore.filter.length == 0) {
-      productsStore.getAll(productsStore.search)
+      productsStore.getAll()
     }
   }
 
   useEffect(() => {
     if (productsStore.filter.length == 0) {
-      productsStore.getAll(productsStore.search)
+      productsStore.getAll()
     }
   }, [productsStore._filter, productsStore._offset])
 
@@ -40,7 +40,7 @@ const Products = () => {
     const timeout = setTimeout(() => {
       setSearchParams({ search: productsStore.search })
       if (productsStore.filter.length == 0) {
-        productsStore.getAll(productsStore.search)
+        productsStore.getAll()
       }
     }, 800)
     return () => {
@@ -50,7 +50,7 @@ const Products = () => {
 
   useEffect(() => {
     if (productsStore._filter.length !== 0) {
-      productsStore.getFilter(productsStore._filter[0], productsStore._offset)
+      productsStore.getFilter(productsStore._filter)
     }
   }, [productsStore._filter, productsStore._offset])
 

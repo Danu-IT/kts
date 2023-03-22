@@ -1,19 +1,19 @@
-import { useRef, FC } from 'react'
+import React, { useRef, FC } from "react";
 
-import Arrow from '@images/Arrow.svg'
-import { Swiper as SwiperType, Navigation, Autoplay } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import Arrow from "images/Arrow.svg";
+import { Swiper as SwiperType, Navigation, Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-import styles from './SwiperCustom.module.scss'
+import "swiper/css";
+import "swiper/css/navigation";
+import styles from "./SwiperCustom.module.scss";
 
 interface SwiperCustomProps {
-  slides: string[]
+  slides: string[];
 }
 
 const SwiperCustom: FC<SwiperCustomProps> = ({ slides }) => {
-  const swiperRef = useRef<SwiperType>()
+  const swiperRef = useRef<SwiperType>();
 
   return (
     <div>
@@ -24,13 +24,16 @@ const SwiperCustom: FC<SwiperCustomProps> = ({ slides }) => {
         slidesPerView={1}
         autoplay={{ delay: 5000 }}
         onBeforeInit={(swiper) => {
-          swiperRef.current = swiper
-        }}
-      >
+          swiperRef.current = swiper;
+        }}>
         <div className={styles.swiper__slides}>
           {slides?.map((slide) => (
             <SwiperSlide key={slide}>
-              <img className={styles.swiper__slide} src={slide} alt="" />
+              <img
+                className={styles.swiper__slide}
+                src={slide}
+                alt=""
+              />
             </SwiperSlide>
           ))}
         </div>
@@ -48,7 +51,7 @@ const SwiperCustom: FC<SwiperCustomProps> = ({ slides }) => {
         />
       </Swiper>
     </div>
-  )
-}
+  );
+};
 
-export default SwiperCustom
+export default SwiperCustom;

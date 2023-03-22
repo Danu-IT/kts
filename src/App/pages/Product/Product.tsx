@@ -1,10 +1,10 @@
-import { FC, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 
-import Loader from '@components/Loader'
-import ProductItemStore from '@store/ProductItemStore/ProductItemStore'
-import { LoaderSize } from '@type/index'
-import { Meta } from '@utils/meta'
-import { useLocalStore } from '@utils/useLocalStore'
+import Loader from 'components/Loader'
+import ProductItemStore from 'store/ProductItemStore/ProductItemStore'
+import { LoaderSize } from 'type/index'
+import { Meta } from 'utils/meta'
+import { useLocalStore } from 'utils/useLocalStore'
 import { observer } from 'mobx-react-lite'
 import { useParams } from 'react-router-dom'
 
