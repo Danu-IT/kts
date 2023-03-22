@@ -1,73 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import ListProducts from "components/ListProducts";
-import Loader from "components/Loader";
-import CategoriesStore from "store/CategoriesStore";
-import ProductsStore from "store/ProductsStore/index";
-import { useQueryParamsStoreInit } from "store/RootStore/hooks/useQueryParamsStoreInit";
-import { LoaderSize, Option } from "type/index";
-import { Meta } from "utils/meta";
-import { observer, useLocalStore } from "mobx-react-lite";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useSearchParams } from "react-router-dom";
+import ListProducts from 'components/ListProducts'
+import Loader from 'components/Loader'
+import CategoriesStore from 'store/CategoriesStore'
+import ProductsStore from 'store/ProductsStore/index'
+import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit'
+import { LoaderSize, Option } from 'type/index'
+import { Meta } from 'utils/meta'
+import { observer, useLocalStore } from 'mobx-react-lite'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { useSearchParams } from 'react-router-dom'
 
-import Search from "./components/Search";
-import Total from "./components/Total";
-import styles from "./Products.module.scss";
+import Search from './components/Search'
+import Total from './components/Total'
+import styles from './Products.module.scss'
 
 const Products = () => {
-  useQueryParamsStoreInit();
+  useQueryParamsStoreInit()
 
-  const [searchParams, setSearchParams] = useSearchParams("");
+  const [searchParams, setSearchParams] = useSearchParams('')
 
-  const productsStore = useLocalStore(() => new ProductsStore());
-  const categoriesStore = useLocalStore(() => new CategoriesStore());
+  const productsStore = useLocalStore(() => new ProductsStore())
+  const categoriesStore = useLocalStore(() => new CategoriesStore())
 
   const handleFind = () => {
-    productsStore._offset = 0;
+    productsStore._offset = 0
     if (productsStore.filter.length == 0) {
-      productsStore.getAll(productsStore.search);
+      productsStore.getAll()
     }
-  };
+  }
 
   useEffect(() => {
     if (productsStore.filter.length == 0) {
-      productsStore.getAll(productsStore.search);
+      productsStore.getAll()
     }
-  }, [productsStore._filter, productsStore._offset]);
+  }, [productsStore._filter, productsStore._offset])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setSearchParams({ search: productsStore.search });
+      setSearchParams({ search: productsStore.search })
       if (productsStore.filter.length == 0) {
-        productsStore.getAll(productsStore.search);
+        productsStore.getAll()
       }
-    }, 800);
+    }, 800)
     return () => {
-      clearTimeout(timeout);
-    };
-  }, [productsStore.search]);
+      clearTimeout(timeout)
+    }
+  }, [productsStore.search])
 
   useEffect(() => {
     if (productsStore._filter.length !== 0) {
-      productsStore.getFilter(productsStore._filter[0], productsStore._offset);
+      productsStore.getFilter(productsStore._filter)
     }
-  }, [productsStore._filter, productsStore._offset]);
+  }, [productsStore._filter, productsStore._offset])
 
   useEffect(() => {
-    categoriesStore.getCategories();
-    let searchParam = searchParams.get("search");
-    if (searchParam === null) searchParam = "";
-    productsStore._search = String(searchParam);
-    handleFind();
-  }, []);
+    categoriesStore.getCategories()
+    let searchParam = searchParams.get('search')
+    if (searchParam === null) searchParam = ''
+    productsStore._search = String(searchParam)
+    handleFind()
+  }, [])
 
   if (productsStore.meta === Meta.loading && productsStore._offset === 0) {
     return (
       <div className={styles.products__loader}>
         <Loader size={LoaderSize.l}></Loader>
       </div>
-    );
+    )
   }
 
   return (
@@ -86,16 +86,16 @@ const Products = () => {
         filter={productsStore.filter}
         search={productsStore.search}
         options={categoriesStore.categories}
-        setSearch={(answer) => (productsStore._search = answer)}></Search>
+        setSearch={(answer) => (productsStore._search = answer)}
+      ></Search>
       <h1 className={styles.products__total}>
         Total Product
         <Total />
       </h1>
       <ListProducts
         data={productsStore.products}
-        error={
-          productsStore.meta === Meta.error && productsStore.meta
-        }></ListProducts>
+        error={productsStore.meta === Meta.error && productsStore.meta}
+      ></ListProducts>
       <InfiniteScroll
         dataLength={productsStore.products.length}
         next={() =>
@@ -107,12 +107,13 @@ const Products = () => {
           productsStore.meta === Meta.loading && (
             <Loader size={LoaderSize.m}></Loader>
           )
-        }>
+        }
+      >
         <></>
       </InfiniteScroll>
       {productsStore.products.length === 0 && <h1>Ничего не найдено</h1>}
     </div>
-  );
-};
+  )
+}
 
-export default observer(Products);
+export default observer(Products)

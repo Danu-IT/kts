@@ -1,11 +1,11 @@
-@import "styles/variable.scss";
+@import 'styles/variable.scss';
 
 .card {
   display: flex;
   &__content {
     display: flex;
     flex-direction: column;
-    font-family: "Eudoxus Sans";
+    font-family: 'Eudoxus Sans';
     font-style: normal;
   }
 
